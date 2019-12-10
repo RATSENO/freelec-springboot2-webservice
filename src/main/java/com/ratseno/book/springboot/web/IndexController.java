@@ -1,5 +1,8 @@
 package com.ratseno.book.springboot.web;
 
+import com.ratseno.book.springboot.config.auth.LoginUser;
+import com.ratseno.book.springboot.config.auth.dto.SessionUser;
+import com.ratseno.book.springboot.domain.user.User;
 import com.ratseno.book.springboot.service.posts.PostsService;
 import com.ratseno.book.springboot.web.dto.PostsResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -8,15 +11,26 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import javax.servlet.http.HttpSession;
+
 @RequiredArgsConstructor
 @Controller
 public class IndexController {
 
     private final PostsService postsService;
+    private  final HttpSession httpSession;
 
     @GetMapping("/")
-    public String index(Model model){
+    public String index(Model model, @LoginUser SessionUser user){
+        /*
+        @LoginUser SessionUser user
+        기존에(User) httpSession.getAttribute("user")로 가져오던 세션 정보값이 개선되었습니다.
+        이제는 어느 컨트롤러든지 @LoginUser만 사용하면 세션정보를 가져올 수 있게 되었습니다.
+        */
         model.addAttribute("posts", postsService.findAllDesc());
+        if(user != null){
+            model.addAttribute("userName", user.getName());
+        }
         return "index";
     }
 
