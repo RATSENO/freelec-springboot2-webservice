@@ -16,7 +16,7 @@
                 <!--
                 스프링 시큐리티에서 기본적으로 제공하는 로그아웃 URL입니다.
                 즉, 개발자가 별도로 저 URL에 해당하는 컨트롤러를 만들 필요가 없습니다.
-                SecurityConfig 클래스에서 URL을 변경할 순 있지만
+                SecurityConfig 클래스에서 URL을 변경할 순 있ㄸ지만
                 기본 URL을 사용해도 충분하니 여기서는 그대로 사용합니다.
                 -->
             {{/userName}}
@@ -29,6 +29,12 @@
                 <!--
                 스프링 시큐리티에서 기본적으로 제공하는 로그인 URL입니다.
                 로그아웃 URL과 마찬가지로 개발자가 별도의 컨트롤러를 생성할 필요가 없습니다.
+                -->
+                <a href="/oauth2/authorization/naver" class="btn btn-secondary active" role="button">Naver Login</a>
+                <!--
+                네이버 로그인 URL은 application-oauth.properties에 등록한 redirect_uri_template= 값에 맞춰
+                자동으로 등록됩니다.
+                /oauth2/authorization/ 까지는 고정이고 마지막 Path만 각 쇼셜 로그인 코드를 사용하면 됩니다.
                 -->
             {{/userName}}
         </div>
